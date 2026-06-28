@@ -12,10 +12,12 @@ namespace AI_Assisted_URL_Shortener.Repositories
 
         public UrlRepository()
         {
-            _dataFolder = Path.Combine(AppContext.BaseDirectory, "data");
+            var projectRoot = FindProjectRoot();
+            _dataFolder = Path.GetFullPath(Path.Combine(projectRoot, "data"));
             Directory.CreateDirectory(_dataFolder);
             _urlsPath = Path.Combine(_dataFolder, "urls.json");
             _eventsPath = Path.Combine(_dataFolder, "click-events.json");
+            MigrateExistingDataIfNeeded();
             EnsureFile(_urlsPath);
             EnsureFile(_eventsPath);
         }
@@ -27,7 +29,9 @@ namespace AI_Assisted_URL_Shortener.Repositories
 
         public UrlRecord? GetByShortCode(string shortCode)
         {
-            return GetAll().FirstOrDefault(x => x.ShortCode == shortCode);
+            return GetAll().FirstOrDefault(x =>
+                string.Equals(x.ShortCode, shortCode, StringComparison.OrdinalIgnoreCase) ||
+                x.RedirectAliases.Any(alias => string.Equals(alias, shortCode, StringComparison.OrdinalIgnoreCase)));
         }
 
         public void Add(UrlRecord record)
@@ -76,7 +80,9 @@ namespace AI_Assisted_URL_Shortener.Repositories
 
         public bool ExistsByShortCode(string shortCode)
         {
-            return GetAll().Any(x => x.ShortCode == shortCode);
+            return GetAll().Any(x =>
+                string.Equals(x.ShortCode, shortCode, StringComparison.OrdinalIgnoreCase) ||
+                x.RedirectAliases.Any(alias => string.Equals(alias, shortCode, StringComparison.OrdinalIgnoreCase)));
         }
 
         private static IEnumerable<T> ReadRecords<T>(string path)
@@ -87,6 +93,38 @@ namespace AI_Assisted_URL_Shortener.Repositories
                 return Enumerable.Empty<T>();
             }
             return JsonSerializer.Deserialize<IEnumerable<T>>(json) ?? Enumerable.Empty<T>();
+        }
+
+        private static string FindProjectRoot()
+        {
+            var current = new DirectoryInfo(Directory.GetCurrentDirectory());
+            while (current is not null)
+            {
+                if (File.Exists(Path.Combine(current.FullName, "server.csproj")))
+                {
+                    return current.FullName;
+                }
+                current = current.Parent;
+            }
+
+            return Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+        }
+
+        private void MigrateExistingDataIfNeeded()
+        {
+            var legacyFolder = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "data"));
+            var legacyUrls = Path.Combine(legacyFolder, "urls.json");
+            var legacyEvents = Path.Combine(legacyFolder, "click-events.json");
+
+            if (Directory.Exists(legacyFolder) && File.Exists(legacyUrls) && !File.Exists(_urlsPath))
+            {
+                File.Copy(legacyUrls, _urlsPath, overwrite: true);
+            }
+
+            if (Directory.Exists(legacyFolder) && File.Exists(legacyEvents) && !File.Exists(_eventsPath))
+            {
+                File.Copy(legacyEvents, _eventsPath, overwrite: true);
+            }
         }
 
         private IEnumerable<UrlRecord> ReadRecords(string path)

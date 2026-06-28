@@ -49,6 +49,25 @@ namespace AI_Assisted_URL_Shortener.Services
         public UrlResponse Update(string code, UpdateUrlRequest request)
         {
             var record = _repository.GetByShortCode(code) ?? throw new InvalidOperationException("URL not found.");
+            var previousShortCode = code;
+
+            if (!string.IsNullOrWhiteSpace(request.CustomAlias))
+            {
+                var alias = request.CustomAlias.Trim();
+                if (alias != record.ShortCode && _repository.ExistsByShortCode(alias))
+                {
+                    throw new ArgumentException("Custom alias is already in use.");
+                }
+
+                if (!string.IsNullOrWhiteSpace(previousShortCode)
+                    && !string.Equals(previousShortCode, alias, StringComparison.OrdinalIgnoreCase)
+                    && !record.RedirectAliases.Any(existing => string.Equals(existing, previousShortCode, StringComparison.OrdinalIgnoreCase)))
+                {
+                    record.RedirectAliases.Add(previousShortCode);
+                }
+
+                record.ShortCode = alias;
+            }
 
             if (request.ExpiresAt.HasValue)
             {
@@ -145,11 +164,13 @@ namespace AI_Assisted_URL_Shortener.Services
 
         private static UrlResponse Map(UrlRecord record)
         {
+            var encodedShortCode = Uri.EscapeDataString(record.ShortCode);
+
             return new UrlResponse
             {
                 Id = record.Id,
                 ShortCode = record.ShortCode,
-                ShortUrl = $"http://localhost:5000/{record.ShortCode}",
+                ShortUrl = $"http://localhost:5000/{encodedShortCode}",
                 OriginalUrl = record.OriginalUrl,
                 CreatedAt = record.CreatedAt,
                 ExpiresAt = record.ExpiresAt,

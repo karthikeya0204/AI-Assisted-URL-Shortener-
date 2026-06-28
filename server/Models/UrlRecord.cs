@@ -11,5 +11,6 @@ namespace AI_Assisted_URL_Shortener.Models
         public DateTimeOffset? ExpiresAt { get; set; }
         public bool IsActive { get; set; } = true;
         public int ClickCount { get; set; }
+        public List<string> RedirectAliases { get; set; } = new();
     }
 }

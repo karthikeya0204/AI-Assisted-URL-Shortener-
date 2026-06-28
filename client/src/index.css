@@ -16,11 +16,13 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3 {
   margin: 0 0 16px;
 }
 
-.form {
+.form,
+.edit-form {
   display: grid;
   gap: 12px;
   margin-bottom: 24px;
@@ -28,6 +30,13 @@ h2 {
 
 label {
   display: grid;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
   gap: 8px;
   font-weight: 600;
 }
@@ -52,6 +61,14 @@ button:hover {
   background: #1d4ed8;
 }
 
+button.secondary {
+  background: #64748b;
+}
+
+button.secondary:hover {
+  background: #475569;
+}
+
 .message {
   padding: 14px 16px;
   background: #e0f2fe;
@@ -73,6 +90,27 @@ td {
 
 th {
   background: #e2e8f0;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.details-panel {
+  margin-top: 24px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.analytics-card {
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  margin-bottom: 16px;
 }
 
 a {

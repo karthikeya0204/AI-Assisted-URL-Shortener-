@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "Id": "b984dd22-7ae3-4028-8643-e9296c32a2ba",
+    "ShortCode": "MSN News",
+    "OriginalUrl": "https://www.msn.com/en-in/channel/topic/Top%20stories/tp-Y_0b495ad3-9beb-45f8-9214-c8e95aa2468f?ocid=hpmsn\u0026cvid=6a40cb19a17d4ee593dca7be97e7ceee",
+    "CreatedAt": "2026-06-28T07:39:32.5567508+00:00",
+    "ExpiresAt": "2026-09-24T07:39:00+00:00",
+    "IsActive": true,
+    "ClickCount": 5,
+    "RedirectAliases": []
+  },
+  {
+    "Id": "7e0c4764-81e0-42af-9709-48396c25434b",
+    "ShortCode": "MSN Enter",
+    "OriginalUrl": "https://www.msn.com/en-in/channel/topic/Entertainment/tp-Y_b4592172-27b8-4955-a169-02a8a134b52e?ocid=hpmsn\u0026cvid=6a40cb19a17d4ee593dca7be97e7ceee",
+    "CreatedAt": "2026-06-28T08:08:28.9889024+00:00",
+    "ExpiresAt": "2026-08-29T08:08:00+00:00",
+    "IsActive": true,
+    "ClickCount": 2,
+    "RedirectAliases": [
+      "MSN Entertainment"
+    ]
+  }
+]
