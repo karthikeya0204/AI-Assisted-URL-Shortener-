@@ -24,6 +24,9 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseCors("AllowLocal");
 app.UseMiddleware<ExceptionMiddleware>();
+app.MapGet("/", () => Results.Ok(new { message = "AI-Assisted URL Shortener API is running." }));
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
