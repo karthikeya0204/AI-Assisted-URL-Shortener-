@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.33515.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI-Assisted-URL-Shortener", "server.csproj", "{C0B6A0CB-2173-4D09-A0CF-EDF3BFF87174}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server.Tests", "Tests\server.Tests.csproj", "{D5E1F194-0B1F-4DAB-A8E9-6A3E088E7ECB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0B6A0CB-2173-4D09-A0CF-EDF3BFF87174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0B6A0CB-2173-4D09-A0CF-EDF3BFF87174}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0B6A0CB-2173-4D09-A0CF-EDF3BFF87174}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0B6A0CB-2173-4D09-A0CF-EDF3BFF87174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E1F194-0B1F-4DAB-A8E9-6A3E088E7ECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E1F194-0B1F-4DAB-A8E9-6A3E088E7ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E1F194-0B1F-4DAB-A8E9-6A3E088E7ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E1F194-0B1F-4DAB-A8E9-6A3E088E7ECB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
